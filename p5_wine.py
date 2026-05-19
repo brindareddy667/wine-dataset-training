@@ -7,11 +7,9 @@ Original file is located at
     https://colab.research.google.com/drive/1hWddB-hPpGcv9HzuKZLGUA_qNef_hZJg
 """
 
-# =========================================
-# WINE QUALITY PREDICTION PROJECT
-# =========================================
 
-# STEP 1 — Import Libraries
+# WINE QUALITY PREDICTION PROJECT
+
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -21,21 +19,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 
-# STEP 2 — Upload Dataset
 
 from google.colab import files
 uploaded = files.upload()
 
-# STEP 3 — Load Dataset
-
 df = pd.read_csv('WineQT.csv')
 
-# STEP 4 — Show First 5 Rows
+
 
 print("FIRST 5 ROWS OF DATASET")
 print(df.head())
 
-# STEP 5 — Convert Wine Quality into Good / Bad
 
 # Quality >= 7 → Good Wine (1)
 # Quality < 7 → Bad Wine (0)
@@ -44,7 +38,7 @@ df['quality'] = df['quality'].apply(
     lambda x: 1 if x >= 7 else 0
 )
 
-# STEP 6 — Heatmap
+
 
 plt.figure(figsize=(12,8))
 
@@ -54,13 +48,12 @@ plt.title("Correlation Heatmap")
 
 plt.show()
 
-# STEP 7 — Split Features and Target
+
 
 X = df.drop('quality', axis=1)
 
 y = df['quality']
 
-# STEP 8 — Train Test Split
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -69,7 +62,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# STEP 9 — Train Model
+
 
 model = RandomForestClassifier(
     n_estimators=100,
@@ -79,18 +72,18 @@ model = RandomForestClassifier(
 
 model.fit(X_train, y_train)
 
-# STEP 10 — Predictions
+
 
 y_pred = model.predict(X_test)
 
-# STEP 11 — Accuracy
+
 
 accuracy = accuracy_score(y_test, y_pred)
 
 print("\nMODEL ACCURACY:")
 print(f"{accuracy * 100:.2f}%")
 
-# STEP 12 — Confusion Matrix
+
 
 cm = confusion_matrix(y_test, y_pred)
 
@@ -106,7 +99,7 @@ plt.ylabel("Actual")
 
 plt.show()
 
-# STEP 13 — Feature Importance
+
 
 importance = model.feature_importances_
 
@@ -122,7 +115,6 @@ importance_df = importance_df.sort_values(
     ascending=False
 )
 
-# STEP 14 — Feature Importance Graph
 
 plt.figure(figsize=(10,6))
 
